@@ -68,8 +68,8 @@ char OIReadAscii() {
       
       if(CurrentKeycode > 96 && CurrentKeycode < 123 && CurrentModifiers.shift) result -= 32;
     } else {
-#ifdef WINDOWS_FASHION_KEYS
       switch(CurrentKeycode) {
+#ifdef WINDOWS_FASHION_KEYS
         case 0xBA: result = ';'; break;
         case 0xBB: result = '='; break;
         case 0xBC: result = ','; break;
@@ -80,8 +80,11 @@ char OIReadAscii() {
         case 0xDC: result = '\\'; break;
         case 0xDD: result = ']'; break;
         case 0xDE: result = '\''; break;
-      }
+        case 9: result = 9; break; // Tab
+#else
+        case 65289: result = 9; break; // Tab
 #endif
+      }
     }
 
     if(CurrentModifiers.shift) {
