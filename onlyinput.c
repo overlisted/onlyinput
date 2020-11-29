@@ -50,18 +50,17 @@ char OIReadAscii() {
     } else {
 #ifdef WINDOWS_FASHION_KEYS
       switch(CurrentKeycode) {
-        case 0xBA: result = ';'
+        case 0xBA: result = ShiftDown ? ':' : ';'
         case 0xBB: result = '+'
         case 0xBC: result = ','
         case 0xBD: result = '-'
         case 0xBE: result = '.'
-        case 0xBF: result = '/'
-        case 0xC0: result = '`'
-        case 0xDB: result = '['
-        case 0xDC: result = '\\'
-        case 0xDD: result = ']'
-        case 0xDE: result = '\''
-        case 0xDF: result = '{'
+        case 0xBF: result = ShiftDown ? '?' : '/'
+        case 0xC0: result = ShiftDown ? '~' : '`'
+        case 0xDB: result = ShiftDown ? '{' : '['
+        case 0xDC: result = ShiftDown ? '|' : '\\'
+        case 0xDD: result = ShiftDown ? '}' : ']'
+        case 0xDE: result = ShiftDown ? '"' : '\''
       }
 #endif
     }
