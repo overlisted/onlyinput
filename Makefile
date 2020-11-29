@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -I. -O1 -g -Wall
-LDFLAGS = -lX11 -lm -lpthread -lGL
+LDFLAGS =
 
 example: example.c
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
