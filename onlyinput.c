@@ -61,7 +61,6 @@ char OIReadAscii() {
       }
       
       if(CurrentKeycode > 96 && CurrentKeycode < 12 && ShiftDown) result -= 32;
-      return result;
     } else {
 #ifdef WINDOWS_FASHION_KEYS
       switch(CurrentKeycode) {
