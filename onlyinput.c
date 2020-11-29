@@ -45,12 +45,12 @@ char OIReadAscii() {
   char result = 0;
   
   if(CurrentBDown) {
-      result = CurrentKeycode;
 #ifdef WINDOWS_FASHION_KEYS
     if(CurrentKeycode >= 0x30 && CurrentKeycode < 0x5A) {
 #else
     if(CurrentKeycode >= 32 && CurrentKeycode < 127) {
 #endif
+      result = CurrentKeycode;
       if(CurrentKeycode > 47 && CurrentKeycode < 58 && CurrentModifiers.shift) {
         switch(result) {
           case '1': result = '!'; break;
