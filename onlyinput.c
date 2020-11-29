@@ -18,20 +18,25 @@
 
 static int CurrentBDown = 0;
 static int CurrentKeycode = 0;
-
-static int ShiftDown = 0;
+static struct ModifierKeys CurrentModifiers = {.shift = 0, .ctrl = 0, .alt = 0, .win = 0};
 
 void OIMaintain(int keycode, int bDown) {
   CurrentKeycode = keycode;
   CurrentBDown = bDown;
 
+  switch(keycode) {
 #ifdef WINDOWS_FASHION_KEYS
-  if(keycode == 0x10) {
+    case 0x10: CurrentModifiers.shift = bDown; break;
+    case 0x11: CurrentModifiers.ctrl = bDown; break;
+    case 0x12: CurrentModifiers.alt = bDown; break;
+    case 0x5B: CurrentModifiers.win = bDown; break;
+    case 0x5C: CurrentModifiers.win = bDown; break;
 #else
-  if(keycode == 65505) {
+    case 65505: CurrentModifiers.shift = bDown; break;
+    case 65507: CurrentModifiers.ctrl = bDown; break;
+    case 65513: CurrentModifiers.alt = bDown; break;
+    case 65516: CurrentModifiers.win = bDown; break;
 #endif
-    ShiftDown = bDown;
-    CurrentKeycode = 0;
   }
 }
 
@@ -45,7 +50,7 @@ char OIReadAscii() {
 #else
     if(CurrentKeycode >= 32 && CurrentKeycode < 127) {
 #endif
-      if(CurrentKeycode > 47 && CurrentKeycode < 58 && ShiftDown) {
+      if(CurrentKeycode > 47 && CurrentKeycode < 58 && CurrentModifiers.shift) {
         switch(result) {
           case '1': result = '!'; break;
           case '2': result = '@'; break;
@@ -60,7 +65,7 @@ char OIReadAscii() {
         }
       }
       
-      if(CurrentKeycode > 96 && CurrentKeycode < 12 && ShiftDown) result -= 32;
+      if(CurrentKeycode > 96 && CurrentKeycode < 12 && CurrentModifiers.shift) result -= 32;
     } else {
 #ifdef WINDOWS_FASHION_KEYS
       switch(CurrentKeycode) {
@@ -78,7 +83,7 @@ char OIReadAscii() {
 #endif
     }
 
-    if(ShiftDown) {
+    if(CurrentModifiers.shift) {
       switch(result) {
         case ';': result = ':'; break;
         case '=': result = '+'; break;
@@ -96,4 +101,8 @@ char OIReadAscii() {
   }
                      
   return result;
+}
+
+struct ModifierKeys OIReadModifiers() {
+  return CurrentModifiers;
 }
