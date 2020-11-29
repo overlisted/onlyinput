@@ -21,7 +21,7 @@ static int CurrentKeycode = 0;
 static struct ModifierKeys CurrentModifiers = {.shift = 0, .ctrl = 0, .alt = 0, .win = 0};
 
 void OIMaintain(int keycode, int bDown) {
-  CurrentKeycode = keycode;
+  CurrentKeycode = 0;
   CurrentBDown = bDown;
 
   switch(keycode) {
@@ -37,6 +37,7 @@ void OIMaintain(int keycode, int bDown) {
     case 65513: CurrentModifiers.alt = bDown; break;
     case 65516: CurrentModifiers.win = bDown; break;
 #endif
+    default: CurrentKeycode = keycode;
   }
 }
 
