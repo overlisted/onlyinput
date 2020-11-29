@@ -66,7 +66,7 @@ char OIReadAscii() {
         }
       }
       
-      if(CurrentKeycode > 96 && CurrentKeycode < 12 && CurrentModifiers.shift) result -= 32;
+      if(CurrentKeycode > 96 && CurrentKeycode < 123 && CurrentModifiers.shift) result -= 32;
     } else {
 #ifdef WINDOWS_FASHION_KEYS
       switch(CurrentKeycode) {
