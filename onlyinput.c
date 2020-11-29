@@ -46,7 +46,7 @@ char OIReadAscii() {
   
   if(CurrentBDown) {
 #ifdef WINDOWS_FASHION_KEYS
-    if(CurrentKeycode >= 0x30 && CurrentKeycode < 0x5A) {
+    if(CurrentKeycode >= 96 && CurrentKeycode < 127) {
 #else
     if(CurrentKeycode >= 32 && CurrentKeycode < 127) {
 #endif
