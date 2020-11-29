@@ -26,43 +26,73 @@ void OIMaintain(int keycode, int bDown) {
   CurrentBDown = bDown;
 
 #ifdef WINDOWS_FASHION_KEYS
-  if(keycode == 0x10) ShiftDown = bDown;
+  if(keycode == 0x10) {
+#else
+  if(keycode == 65505) {
 #endif
-  
-#ifdef ON_X11
-  if(keycode == 65505) ShiftDown = bDown;
-#endif
+    ShiftDown = bDown;
+    CurrentKeycode = 0;
+  }
 }
 
 char OIReadAscii() {
   char result = 0;
   
   if(CurrentBDown) {
+      result = CurrentKeycode;
 #ifdef WINDOWS_FASHION_KEYS
-    if(CurrentKeycode >= 0x41 && CurrentKeycode < 0x5A) {
+    if(CurrentKeycode >= 0x30 && CurrentKeycode < 0x5A) {
 #else
     if(CurrentKeycode >= 32 && CurrentKeycode < 127) {
 #endif
-      result = CurrentKeycode;
+      if(CurrentKeycode > 47 && CurrentKeycode < 58 && ShiftDown) {
+        switch(result) {
+          case '1': result = '!'; break;
+          case '2': result = '@'; break;
+          case '3': result = '#'; break;
+          case '4': result = '$'; break;
+          case '5': result = '%'; break;
+          case '6': result = '^'; break;
+          case '7': result = '&'; break;
+          case '8': result = '*'; break;
+          case '9': result = '('; break;
+          case '0': result = ')'; break;
+        }
+      }
       
       if(CurrentKeycode > 96 && CurrentKeycode < 12 && ShiftDown) result -= 32;
       return result;
     } else {
 #ifdef WINDOWS_FASHION_KEYS
       switch(CurrentKeycode) {
-        case 0xBA: result = ShiftDown ? ':' : ';'
-        case 0xBB: result = '+'
-        case 0xBC: result = ','
-        case 0xBD: result = '-'
-        case 0xBE: result = '.'
-        case 0xBF: result = ShiftDown ? '?' : '/'
-        case 0xC0: result = ShiftDown ? '~' : '`'
-        case 0xDB: result = ShiftDown ? '{' : '['
-        case 0xDC: result = ShiftDown ? '|' : '\\'
-        case 0xDD: result = ShiftDown ? '}' : ']'
-        case 0xDE: result = ShiftDown ? '"' : '\''
+        case 0xBA: result = ';'; break;
+        case 0xBB: result = '='; break;
+        case 0xBC: result = ','; break;
+        case 0xBD: result = '-'; break;
+        case 0xBF: result = '/'; break;
+        case 0xC0: result = '`'; break;
+        case 0xDB: result = '['; break;
+        case 0xDC: result = '\\'; break;
+        case 0xDD: result = ']'; break;
+        case 0xDE: result = '\''; break;
       }
 #endif
+    }
+
+    if(ShiftDown) {
+      switch(result) {
+        case ';': result = ':'; break;
+        case '=': result = '+'; break;
+        case ',': result = '<'; break;
+        case '-': result = '_'; break;
+        case '.': result = '>'; break;
+        case '/': result = '?'; break;
+        case '`': result = '~'; break;
+        case '[': result = '{'; break;
+        case '\\': result = '|'; break;
+        case ']': result = '}'; break;
+        case '\'': result = '"'; break;
+      }
     }
   }
                      
