@@ -70,6 +70,7 @@ char OIReadAscii() {
     } else {
       switch(CurrentKeycode) {
 #ifdef WINDOWS_FASHION_KEYS
+        case 0x20: result = ' '; break;
         case 0xBA: result = ';'; break;
         case 0xBB: result = '='; break;
         case 0xBC: result = ','; break;
