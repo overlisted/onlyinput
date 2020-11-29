@@ -9,7 +9,7 @@
 #include <rawdraw/os_generic.h>
 
 void HandleKey(int keycode, int bDown) {
-  OIMaintain(keycode, bDown);
+  OIHandleKey(keycode, bDown);
 }
 
 void HandleButton(int x, int y, int button, int bDown) {

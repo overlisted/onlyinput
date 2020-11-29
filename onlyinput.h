@@ -8,7 +8,7 @@ struct ModifierKeys {
 };
 
 // NOTE: Call this in your HandleInput() *BEFORE* you call the RDUI's handler
-void OIMaintain(int keycode, int bDown);
+void OIHandleKey(int keycode, int bDown);
 char OIReadAscii();
 struct ModifierKeys OIReadModifiers();
 

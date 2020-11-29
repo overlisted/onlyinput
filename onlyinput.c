@@ -20,7 +20,7 @@ static int CurrentBDown = 0;
 static int CurrentKeycode = 0;
 static struct ModifierKeys CurrentModifiers = {.shift = 0, .ctrl = 0, .alt = 0, .win = 0};
 
-void OIMaintain(int keycode, int bDown) {
+void OIHandleKey(int keycode, int bDown) {
   CurrentKeycode = 0;
   CurrentBDown = bDown;
 
