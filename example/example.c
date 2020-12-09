@@ -6,7 +6,6 @@
 #define CNFG_IMPLEMENTATION
 #include <../onlyinput.h>
 #include <rawdraw/CNFG.h>
-#include <rawdraw/os_generic.h>
 
 void HandleKey(int keycode, int bDown) {
   OIHandleKey(keycode, bDown);
@@ -34,7 +33,5 @@ int main() {
     printf("Pressed letter: %c\n", OIReadAscii());
 
     CNFGSwapBuffers();
-
-    OGSleep(1);
   }
 }
