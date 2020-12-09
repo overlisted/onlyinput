@@ -27,8 +27,6 @@ static struct ModifierKeys CurrentModifiers = {
 	.caps_lock_down = 0
 };
 
-#include <stdio.h>
-
 int InvertBool(int b) {
 	return b ? 0 : 1;
 }
