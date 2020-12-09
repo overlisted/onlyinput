@@ -75,6 +75,7 @@ char OIReadAscii() {
         case 0xBB: result = '='; break;
         case 0xBC: result = ','; break;
         case 0xBD: result = '-'; break;
+        case 0xBE: result = '.'; break;
         case 0xBF: result = '/'; break;
         case 0xC0: result = '`'; break;
         case 0xDB: result = '['; break;
