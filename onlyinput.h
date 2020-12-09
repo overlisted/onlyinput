@@ -5,6 +5,8 @@ struct ModifierKeys {
   int ctrl: 1;
   int alt: 1;
   int win: 1;
+	int caps_lock: 1;
+	int caps_lock_down: 1;
 };
 
 // NOTE: Call this in your HandleKey() *BEFORE* you call the RDUI's handler

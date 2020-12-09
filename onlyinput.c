@@ -18,7 +18,30 @@
 
 static int CurrentBDown = 0;
 static int CurrentKeycode = 0;
-static struct ModifierKeys CurrentModifiers = {.shift = 0, .ctrl = 0, .alt = 0, .win = 0};
+static struct ModifierKeys CurrentModifiers = {
+	.shift = 0,
+	.ctrl = 0,
+	.alt = 0,
+	.win = 0,
+	.caps_lock = 0,
+	.caps_lock_down = 0
+};
+
+#include <stdio.h>
+
+int InvertBool(int b) {
+	return b ? 0 : 1;
+}
+
+void ProcessCaps(int new_b_down) {
+	if(new_b_down) CurrentModifiers.caps_lock = InvertBool(CurrentModifiers.caps_lock);
+
+	CurrentModifiers.caps_lock_down = new_b_down;
+}
+
+int ShouldCapitalize() {
+	return CurrentModifiers.shift || CurrentModifiers.caps_lock;
+}
 
 void OIHandleKey(int keycode, int bDown) {
   CurrentKeycode = 0;
@@ -31,11 +54,13 @@ void OIHandleKey(int keycode, int bDown) {
     case 0x12: CurrentModifiers.alt = bDown; break;
     case 0x5B: CurrentModifiers.win = bDown; break;
     case 0x5C: CurrentModifiers.win = bDown; break;
+		case 0x14: ProcessCaps(bDown); break;
 #else
     case 65505: CurrentModifiers.shift = bDown; break;
     case 65507: CurrentModifiers.ctrl = bDown; break;
     case 65513: CurrentModifiers.alt = bDown; break;
     case 65516: CurrentModifiers.win = bDown; break;
+		case 65509: ProcessCaps(bDown); break;
 #endif
     default: CurrentKeycode = keycode;
   }
@@ -66,7 +91,7 @@ char OIReadAscii() {
         }
       }
 
-      if(CurrentKeycode > 96 && CurrentKeycode < 123 && CurrentModifiers.shift) result -= 32;
+      if(CurrentKeycode > 96 && CurrentKeycode < 123 && ShouldCapitalize()) result -= 32;
     } else {
       switch(CurrentKeycode) {
 #ifdef WINDOWS_FASHION_KEYS
