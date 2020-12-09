@@ -43,9 +43,13 @@ void OIHandleKey(int keycode, int bDown) {
 
 char OIReadAscii() {
   char result = 0;
-  
+
   if(CurrentBDown) {
+#ifdef WINDOWS_FASHION_KEYS
+    if(CurrentKeycode > 47 && CurrentKeycode < 123) {
+#else
     if(CurrentKeycode >= 32 && CurrentKeycode < 127) {
+#endif
       result = CurrentKeycode;
       if(CurrentKeycode > 47 && CurrentKeycode < 58 && CurrentModifiers.shift) {
         switch(result) {
@@ -61,7 +65,7 @@ char OIReadAscii() {
           case '0': result = ')'; break;
         }
       }
-      
+
       if(CurrentKeycode > 96 && CurrentKeycode < 123 && CurrentModifiers.shift) result -= 32;
     } else {
       switch(CurrentKeycode) {
@@ -101,7 +105,7 @@ char OIReadAscii() {
       }
     }
   }
-                     
+
   return result;
 }
 
