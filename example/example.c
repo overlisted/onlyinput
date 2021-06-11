@@ -2,7 +2,6 @@
 
 #include <stdio.h>
 
-#define ONLYINPUT_IMPLEMENTATION
 #define CNFG_IMPLEMENTATION
 #include <../onlyinput.h>
 #include <rawdraw/CNFG.h>
