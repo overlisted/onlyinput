@@ -1,3 +1,5 @@
+#pragma once
+
 #if defined(WINDOWS) || defined(WIN32) || defined(WIN64) || defined(_WIN32) || defined(_WIN64)
 #define ON_WINDOWS
 #elif defined(__wasm__)
